@@ -28,18 +28,28 @@ SELECT c.salesRepEmployeeNumber, e.lastName, e.firstName, o.city, o.country, SUM
     GROUP BY c.salesRepEmployeeNumber
     ORDER BY SUM(p.amount) DESC;
 
-# Which sales reps earn more than 1501? Utilises subqueries.
+# Which sales reps earn more than _____? Utilises subqueries and stored procedures
+DELIMITER //
+CREATE PROCEDURE BetterThanX (IN RepNumber VARCHAR(4))
+BEGIN
 SELECT c.salesRepEmployeeNumber, e.lastName, e.firstName, o.city, o.country, SUM(p.amount) as totalSales FROM customers c
 	JOIN payments p on c.customerNumber = p.customerNumber
     JOIN employees e on c.salesRepEmployeeNumber = e.employeeNumber
     JOIN offices o on e.officeCode = o.officeCode
     GROUP BY salesRepEmployeeNumber
-	HAVING SUM(p.amount) > 
+	HAVING SUM(p.amount) >=
 		(SELECT SUM(p.amount) FROM customers c
 			JOIN payments p on c.customerNumber = p.customerNumber
             JOIN employees e on c.salesRepEmployeeNumber = e.employeeNumber
 			JOIN offices o on e.officeCode = o.officeCode
-            WHERE salesRepEmployeeNumber=1501);
+            WHERE salesRepEmployeeNumber= RepNumber);
+END //
+
+# Call the stored procedure from above
+CALL BetterThanX('1702');
+
+	
+		
     
 # Best seller in the London Office?
 SELECT c.salesRepEmployeeNumber, e.lastName, e.firstName, o.city, o.country, SUM(p.amount) as totalSales FROM customers c
