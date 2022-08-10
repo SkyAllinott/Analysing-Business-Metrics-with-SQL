@@ -40,13 +40,6 @@ SELECT c.salesRepEmployeeNumber, e.lastName, e.firstName, o.city, o.country, SUM
             JOIN employees e on c.salesRepEmployeeNumber = e.employeeNumber
 			JOIN offices o on e.officeCode = o.officeCode
             WHERE salesRepEmployeeNumber=1501);
-            
-SELECT SUM(p.amount) FROM customers c
-			JOIN payments p on c.customerNumber = p.customerNumber
-            JOIN employees e on c.salesRepEmployeeNumber = e.employeeNumber
-			JOIN offices o on e.officeCode = o.officeCode
-            WHERE salesRepEmployeeNumber=1501;
-		
     
 # Best seller in the London Office?
 SELECT c.salesRepEmployeeNumber, e.lastName, e.firstName, o.city, o.country, SUM(p.amount) as totalSales FROM customers c
