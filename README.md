@@ -19,10 +19,10 @@ A few of the techniques I use in these queries are:
      - Let's you connect tables that are not directly connected to one another
 2. Subqueries
    - Subqueries let you compare results of two queries
-     - For instance, this let's you return the list of all sales reps with more sales than employee X, in one efficient query
+     - For instance, this let's you return the list of all sales reps with more sales than employee 1501, in one efficient query
 3. Stored procedures
    - These are essentially just functions with parameters
-     - For instance, this let's you easily return the list of all employees in X office, without having to alter the query itself each time
+     - For instance, this let's you alter the subquery example from above to easily see which employees are better than employee X; instead of just 1501
 4. Window functions
    - These are functions that work across table ROWS, and not columns
      - For instance, we can create a column that gives the time between each order for a given company
